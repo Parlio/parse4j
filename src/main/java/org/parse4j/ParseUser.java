@@ -113,7 +113,7 @@ public class ParseUser extends ParseObject {
 					"Cannot sign up a user that has already signed up.");
 		}
 		
-		ParsePostCommand command = new ParsePostCommand(getClassName(), false);
+		ParsePostCommand command = new ParsePostCommand(getClassName());
 		JSONObject parseData = getParseData();
 		parseData.put("password", password);
 		command.setData(parseData);
@@ -148,7 +148,7 @@ public class ParseUser extends ParseObject {
 	public static ParseUser login(String username, String password) throws ParseException {
 		
 		currentUser = null;
-		ParseGetCommand command = new ParseGetCommand("login", false);
+		ParseGetCommand command = new ParseGetCommand("login");
 		command.addJson(false);
 		command.put("username", username);
 	    command.put("password", password);
@@ -192,7 +192,7 @@ public class ParseUser extends ParseObject {
 	
 	public static void requestPasswordReset(String email) throws ParseException {
 
-		ParsePostCommand command = new ParsePostCommand("requestPasswordReset", false);
+		ParsePostCommand command = new ParsePostCommand("requestPasswordReset");
 		JSONObject data = new JSONObject();
 		data.put("email", email);
 		command.setData(data);

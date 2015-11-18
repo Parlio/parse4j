@@ -74,7 +74,7 @@ public class ParsePush {
         }
 	
 	public void send() throws ParseException {
-		ParsePostCommand command = new ParsePostCommand("push", false);
+		ParsePostCommand command = new ParsePostCommand("push");
                 JSONObject requestData = getJSONData();
 		command.setData(requestData);
 		ParseResponse response = command.perform();

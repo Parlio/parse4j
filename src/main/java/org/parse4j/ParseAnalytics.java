@@ -42,7 +42,7 @@ public class ParseAnalytics {
 			}
 
 			public void run() {
-				ParsePostCommand command = new ParsePostCommand("events", event, false);
+				ParsePostCommand command = new ParsePostCommand("events", event);
 				JSONObject data = new JSONObject();
 				data.put("at", ParseEncoder.encode(new Date(), null));
 				if(dimensions != null && dimensions.size() > 0) {
