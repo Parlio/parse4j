@@ -19,6 +19,7 @@ public class Parse {
 
 	private static String mApplicationId;
 	private static String mRestAPIKey;
+	private static String mMasterKey;
 	private static final DateFormat dateFormat;
 
 	static {
@@ -33,6 +34,11 @@ public class Parse {
 		mApplicationId = applicationId;
 		mRestAPIKey = restAPIKey;
 	}
+	
+	static public void initialize(String applicationId, String restAPIKey, String masterKey) {
+        Parse.initialize(applicationId, restAPIKey);
+        mMasterKey = masterKey;
+    }
 
 	static public String getApplicationId() {
 		return mApplicationId;
@@ -41,6 +47,10 @@ public class Parse {
 	static public String getRestAPIKey() {
 		return mRestAPIKey;
 	}
+	
+	static public String getMasterKey() {
+        return mMasterKey;
+    }
 
 	static public String getParseAPIUrl(String context) {
 		return ParseConstants.API_ENDPOINT + "/" + ParseConstants.API_VERSION

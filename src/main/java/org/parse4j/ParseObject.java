@@ -443,16 +443,24 @@ public class ParseObject {
 		
 	}
 	
+	public void saveWithMasterKey() throws ParseException {
+	    save(true);
+	}
+	
 	public void save() throws ParseException {
+	    save(false);
+	}
+	
+	private void save(boolean useMasterKey) throws ParseException {
 
 		if(!isDirty) return;
 
 		ParseCommand command;
 		if(objectId == null) {
-			command = new ParsePostCommand(getEndPoint());
+			command = new ParsePostCommand(getEndPoint(), useMasterKey);
 		}
 		else {
-			command =  new ParsePutCommand(getEndPoint(), getObjectId());
+			command =  new ParsePutCommand(getEndPoint(), getObjectId(), useMasterKey);
 		}
 		
 		command.setData(getParseData());
@@ -493,11 +501,19 @@ public class ParseObject {
 		}
 	}
 	
+	public void deleteWithMasterKey() throws ParseException {
+        delete(true);
+    }
+	
 	public void delete() throws ParseException {
+	    delete(false);
+	}
+	
+	protected void delete(boolean useMasterKey) throws ParseException {
 		
 		if(objectId == null) return;
 		
-		ParseCommand command = new ParseDeleteCommand(getEndPoint(), getObjectId());
+		ParseCommand command = new ParseDeleteCommand(getEndPoint(), getObjectId(), useMasterKey);
 		ParseResponse response = command.perform();
 		if(response.isFailed()) {
 			throw response.getException();
@@ -624,9 +640,17 @@ public class ParseObject {
 		}
 	}
 	
-	public <T extends ParseObject> T fetchIfNeeded() throws ParseException {
+	public <T extends ParseObject> T fetchIfNeededWithMasterKey() throws ParseException {
+	    return fetchIfNeeded(true);
+	}
 	
-		ParseGetCommand command = new ParseGetCommand(getEndPoint(), getObjectId());
+	public <T extends ParseObject> T fetchIfNeeded() throws ParseException {
+	    return fetchIfNeeded(false);
+	}
+	
+	private <T extends ParseObject> T fetchIfNeeded(boolean useMasterKey) throws ParseException {
+	
+		ParseGetCommand command = new ParseGetCommand(getEndPoint(), getObjectId(), useMasterKey);
 		//JSONObject query = new JSONObject();
 		//query.put("objectId", getObjectId());
 		//command.setData(query);
@@ -647,7 +671,15 @@ public class ParseObject {
 		
 	}
 	
+	public final <T extends ParseObject> void fetchIfNeededWithMasterKey(GetCallback<T> callback) {
+	    fetchIfNeeded(true, callback);
+	}
+	
 	public final <T extends ParseObject> void fetchIfNeeded(GetCallback<T> callback) {
+	    fetchIfNeeded(false, callback);
+	}
+	
+	private final <T extends ParseObject> void fetchIfNeeded(boolean useMasterKey, GetCallback<T> callback) {
 	    
 		ParseException exception = null;
 		T object = null;

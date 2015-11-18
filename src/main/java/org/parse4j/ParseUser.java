@@ -209,12 +209,22 @@ public class ParseUser extends ParseObject {
 		}
 
 	}
-
+	
+	@Override
+	public void deleteWithMasterKey() throws ParseException {
+	    delete(true);
+	}
+	
 	@Override
 	public void delete() throws ParseException {
+	    delete(false);
+	}
+	
+	@Override
+	protected void delete(boolean useMasterKey) throws ParseException {
 		if(getObjectId() == null) return;
 
-		ParseCommand command = new ParseDeleteCommand(getEndPoint(), getObjectId());
+		ParseCommand command = new ParseDeleteCommand(getEndPoint(), getObjectId(), useMasterKey);
 		command.put(ParseConstants.FIELD_SESSION_TOKEN, getSessionToken());
 
 		ParseResponse response = command.perform();

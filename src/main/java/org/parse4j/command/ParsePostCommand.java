@@ -16,14 +16,24 @@ public class ParsePostCommand extends ParseCommand {
 	private String endPoint;
 	private String objectId;
 
-	public ParsePostCommand(String endPoint, String objectId) {
-		this.endPoint = endPoint;
-		this.objectId = objectId;
+	public ParsePostCommand(String endPoint, String objectId, boolean useMasterKey) {
+	    this(endPoint, objectId);
+	    this.useMasterKey = useMasterKey;
+	}
+	
+	public ParsePostCommand(String endPoint, String objectId){
+	    this.endPoint = endPoint;
+	    this.objectId = objectId;
 	}
 
-	public ParsePostCommand(String endPoint) {
-		this.endPoint = endPoint;
+	public ParsePostCommand(String endPoint, boolean useMasterKey) {
+	    this(endPoint);
+	    this.useMasterKey = useMasterKey;
 	}
+	
+	public ParsePostCommand(String endPoint) {
+	    this.endPoint = endPoint;
+    }
 
 	@Override
 	public HttpRequestBase getRequest() throws IOException {

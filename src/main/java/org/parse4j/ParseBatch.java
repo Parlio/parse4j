@@ -16,8 +16,16 @@ import org.slf4j.LoggerFactory;
 public class ParseBatch {
 	private static final String path = "/" + ParseConstants.API_VERSION + "/"+ "classes" + "/";
 	private JSONArray data = new JSONArray();
+	private boolean shouldUseMasterKey = false;
 
 	private static Logger LOGGER = LoggerFactory.getLogger(ParseBatch.class);
+	
+	public void useMasterKey(){
+        if( Parse.getMasterKey() == null ){
+            throw new RuntimeException("Missing master key. Please set the master key during initialization");
+        }
+        shouldUseMasterKey = true;
+    }
 
 	public void deleteObject(ParseObject obj) {
 		if (obj.getObjectId() == null)
@@ -54,7 +62,7 @@ public class ParseBatch {
 	 * @throws ParseException
 	 */
 	public JSONArray batch() throws ParseException {
-		ParseCommand command = new ParseBatchCommand();
+		ParseCommand command = new ParseBatchCommand(shouldUseMasterKey);
 		command.put("requests", data);
 		ParseResponse response = command.perform();
 		if (!response.isFailed()) {
