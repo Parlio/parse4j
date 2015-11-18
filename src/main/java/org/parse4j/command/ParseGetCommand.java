@@ -19,13 +19,15 @@ public class ParseGetCommand extends ParseCommand {
 	private String endPoint;
 	private String objectId;
 
-	public ParseGetCommand(String className, String objectId) {
+	public ParseGetCommand(String className, String objectId, boolean useMasterKey) {
 		this.endPoint = className;
 		this.objectId = objectId;
+		this.useMasterKey = useMasterKey;
 	}
 
-	public ParseGetCommand(String endPoint) {
+	public ParseGetCommand(String endPoint, boolean useMasterKey) {
 		this.endPoint = endPoint;
+		this.useMasterKey = useMasterKey;
 	}
 
 	@SuppressWarnings("rawtypes")

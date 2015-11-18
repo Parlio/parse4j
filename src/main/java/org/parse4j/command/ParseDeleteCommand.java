@@ -9,9 +9,10 @@ public class ParseDeleteCommand extends ParseCommand {
 	private String endPoint;
 	private String objectId;
 
-	public ParseDeleteCommand(String endPoint, String objectId) {
+	public ParseDeleteCommand(String endPoint, String objectId, boolean useMasterKey) {
 		this.endPoint = endPoint;
 		this.objectId = objectId;
+		this.useMasterKey = useMasterKey;
 	}
 
 	public ParseDeleteCommand(String endPoint) {

@@ -16,13 +16,15 @@ public class ParsePostCommand extends ParseCommand {
 	private String endPoint;
 	private String objectId;
 
-	public ParsePostCommand(String endPoint, String objectId) {
+	public ParsePostCommand(String endPoint, String objectId, boolean useMasterKey) {
 		this.endPoint = endPoint;
 		this.objectId = objectId;
+		this.useMasterKey = useMasterKey;
 	}
 
-	public ParsePostCommand(String endPoint) {
+	public ParsePostCommand(String endPoint, boolean useMasterKey) {
 		this.endPoint = endPoint;
+		this.useMasterKey = useMasterKey;
 	}
 
 	@Override

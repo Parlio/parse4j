@@ -34,6 +34,7 @@ public class ParseQuery<T extends ParseObject> {
 	private int limit;
 	private int skip;
 	private String order;
+	private boolean shouldUseMasterKey = false;
 	
 	private boolean trace;
 	private boolean caseSensitive = true;
@@ -61,6 +62,13 @@ public class ParseQuery<T extends ParseObject> {
 	public static <T extends ParseObject> ParseQuery<T> getQuery(
 			String className) {
 		return new ParseQuery<T>(className);
+	}
+	
+	public void useMasterKey(){
+	    if( Parse.getMasterKey() == null ){
+	        throw new RuntimeException("Missing master key. Please set the master key during initialization");
+	    }
+	    shouldUseMasterKey = true;
 	}
 	
 	private void addCondition(String key, String condition, Object value) {
@@ -494,7 +502,7 @@ public class ParseQuery<T extends ParseObject> {
 			endPoint = getClassName();
 		}
 
-		ParseGetCommand command = new ParseGetCommand(endPoint);
+		ParseGetCommand command = new ParseGetCommand(endPoint, shouldUseMasterKey);
 		query.remove("className");
 		command.setData(query);
 		ParseResponse response = command.perform();
@@ -608,7 +616,7 @@ public class ParseQuery<T extends ParseObject> {
 			endPoint = getClassName();
 		}
 
-		ParseGetCommand command = new ParseGetCommand(endPoint);
+		ParseGetCommand command = new ParseGetCommand(endPoint, shouldUseMasterKey);
 		JSONObject query = toREST();
 		query.put("count", 1);
 		query.put("limit", 0);

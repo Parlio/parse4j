@@ -18,7 +18,7 @@ public class ParseCloud {
 			throws ParseException {
 
 		T result = null;
-		ParsePostCommand command = new ParsePostCommand("functions", name);
+		ParsePostCommand command = new ParsePostCommand("functions", name, false);
 		command.setData(new JSONObject(params));
 		ParseResponse response = command.perform();
 		

@@ -16,6 +16,10 @@ import org.slf4j.LoggerFactory;
 public class ParseBatchCommand extends ParseCommand{
 
 	private static Logger LOGGER = LoggerFactory.getLogger(ParseBatchCommand.class);
+	
+	public ParseBatchCommand(boolean useMasterKey){
+	    this.useMasterKey = useMasterKey;
+	}
 
 	public String getUrl(){
 		String base = ParseConstants.API_ENDPOINT;

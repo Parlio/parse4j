@@ -113,7 +113,7 @@ public class ParseUser extends ParseObject {
 					"Cannot sign up a user that has already signed up.");
 		}
 		
-		ParsePostCommand command = new ParsePostCommand(getClassName());
+		ParsePostCommand command = new ParsePostCommand(getClassName(), false);
 		JSONObject parseData = getParseData();
 		parseData.put("password", password);
 		command.setData(parseData);
@@ -148,7 +148,7 @@ public class ParseUser extends ParseObject {
 	public static ParseUser login(String username, String password) throws ParseException {
 		
 		currentUser = null;
-		ParseGetCommand command = new ParseGetCommand("login");
+		ParseGetCommand command = new ParseGetCommand("login", false);
 		command.addJson(false);
 		command.put("username", username);
 	    command.put("password", password);
@@ -192,7 +192,7 @@ public class ParseUser extends ParseObject {
 	
 	public static void requestPasswordReset(String email) throws ParseException {
 
-		ParsePostCommand command = new ParsePostCommand("requestPasswordReset");
+		ParsePostCommand command = new ParsePostCommand("requestPasswordReset", false);
 		JSONObject data = new JSONObject();
 		data.put("email", email);
 		command.setData(data);
@@ -209,12 +209,22 @@ public class ParseUser extends ParseObject {
 		}
 
 	}
-
+	
+	@Override
+	public void deleteWithMasterKey() throws ParseException {
+	    delete(true);
+	}
+	
 	@Override
 	public void delete() throws ParseException {
+	    delete(false);
+	}
+	
+	@Override
+	protected void delete(boolean useMasterKey) throws ParseException {
 		if(getObjectId() == null) return;
 
-		ParseCommand command = new ParseDeleteCommand(getEndPoint(), getObjectId());
+		ParseCommand command = new ParseDeleteCommand(getEndPoint(), getObjectId(), useMasterKey);
 		command.put(ParseConstants.FIELD_SESSION_TOKEN, getSessionToken());
 
 		ParseResponse response = command.perform();

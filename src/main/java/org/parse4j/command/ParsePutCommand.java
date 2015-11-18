@@ -16,13 +16,15 @@ public class ParsePutCommand extends ParseCommand {
 	private String endPoint;
 	private String objectId;
 
-	public ParsePutCommand(String endPoint, String objectId) {
+	public ParsePutCommand(String endPoint, String objectId, boolean useMasterKey) {
 		this.endPoint = endPoint;
 		this.objectId = objectId;
+		this.useMasterKey = useMasterKey;
 	}
 	
-	public ParsePutCommand(String endPoint) {
+	public ParsePutCommand(String endPoint, boolean useMasterKey) {
 		this.endPoint = endPoint;
+		this.useMasterKey = useMasterKey;
 	}
 
 	@Override
