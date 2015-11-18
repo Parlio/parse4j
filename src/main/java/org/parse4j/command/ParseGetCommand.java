@@ -21,7 +21,7 @@ public class ParseGetCommand extends ParseCommand {
 
 	public ParseGetCommand(String className, String objectId, boolean useMasterKey) {
 	    this(className, objectId);
-		this.useMasterKey = useMasterKey;
+	    this.useMasterKey = useMasterKey;
 	}
 	
 	public ParseGetCommand(String className, String objectId){
@@ -30,8 +30,8 @@ public class ParseGetCommand extends ParseCommand {
 	}
 
 	public ParseGetCommand(String endPoint, boolean useMasterKey) {
-		this(endPoint);
-		this.useMasterKey = useMasterKey;
+	    this(endPoint);
+	    this.useMasterKey = useMasterKey;
 	}
 	
 	public ParseGetCommand(String endPoint) {
