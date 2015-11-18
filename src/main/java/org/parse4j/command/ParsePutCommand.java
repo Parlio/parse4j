@@ -17,15 +17,23 @@ public class ParsePutCommand extends ParseCommand {
 	private String objectId;
 
 	public ParsePutCommand(String endPoint, String objectId, boolean useMasterKey) {
-		this.endPoint = endPoint;
-		this.objectId = objectId;
+		this(endPoint, objectId);
 		this.useMasterKey = useMasterKey;
 	}
 	
+	public ParsePutCommand(String endPoint, String objectId) {
+	    this.endPoint = endPoint;
+        this.objectId = objectId;
+	}
+	
 	public ParsePutCommand(String endPoint, boolean useMasterKey) {
-		this.endPoint = endPoint;
+	    this(endPoint);
 		this.useMasterKey = useMasterKey;
 	}
+	
+	public ParsePutCommand(String endPoint) {
+	    this.endPoint = endPoint;
+    }
 
 	@Override
 	public HttpRequestBase getRequest() throws IOException {

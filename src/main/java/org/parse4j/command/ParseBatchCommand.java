@@ -17,6 +17,7 @@ public class ParseBatchCommand extends ParseCommand{
 
 	private static Logger LOGGER = LoggerFactory.getLogger(ParseBatchCommand.class);
 	
+	public ParseBatchCommand(){}
 	public ParseBatchCommand(boolean useMasterKey){
 	    this.useMasterKey = useMasterKey;
 	}
